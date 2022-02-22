@@ -15,10 +15,11 @@ type Users struct {
 	model models.User
 }
 
+// GetUsers ...
 func (u Users) GetUsers(res http.ResponseWriter, req *http.Request, _ httprouter.Params) {
 	var filters models.FilterUser
-	queryValues := req.URL.Query()
 	var err error
+	queryValues := req.URL.Query()
 
 	filters.Limit, err = strconv.Atoi(queryValues.Get("limit"))
 

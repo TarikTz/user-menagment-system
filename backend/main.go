@@ -14,7 +14,6 @@ import (
 var (
 	users controllers.Users
 	handlers helpers.Handlers
-	// helpers helpers.App
 )
 
 func main() {
@@ -23,12 +22,11 @@ func main() {
 	port := "3010"
 	serverIP := "localhost"
 
-	helpers.DBAccess(false, "dev")
+	helpers.DBAccess()
 
 	server := negroni.Classic()
 	mux := httprouter.New()
 
-	// NOTE: prevent sending of Call Stack on panic
 	recovery := negroni.NewRecovery()
 	recovery.PrintStack = false
 	server.Use(recovery)
@@ -36,9 +34,6 @@ func main() {
 	server.Use(negroni.HandlerFunc(handlers.CORS))
 
 	server.UseHandler(mux)
-
-	// a := helpers.App{}
-	// a.Initialize("root", "root", "ums_db")
 
 	mux.GET("/users", users.GetUsers)
 	mux.GET("/user/:id", users.GetUser)

@@ -31,6 +31,20 @@ type Permission struct {
 	Description string `json:"description" db:"description"`
 }
 
+var UserTable = `CREATE TABLE 
+				ums_db.users 
+				( 
+					id INT(11) NOT NULL AUTO_INCREMENT , 
+					first_name VARCHAR(50) NOT NULL , 
+					last_name VARCHAR(50) NOT NULL , 
+					username VARCHAR(50) NOT NULL , 
+					password CHAR(60) NOT NULL , 
+					email VARCHAR(100) NOT NULL , 
+					status INT NOT NULL DEFAULT '0' , 
+					PRIMARY KEY (id)
+				) 
+				ENGINE = InnoDB;`
+
 // ListUsers ...
 func ListUsers(filters FilterUser) ([]User, int, error) {
 	var users []User
