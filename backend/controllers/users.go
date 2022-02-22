@@ -138,3 +138,8 @@ func (u Users) DeleteUser(res http.ResponseWriter, req *http.Request, params htt
 
 	helpers.RespondWithJSON(res, http.StatusOK, map[string]interface{}{"status": "User deleted"})
 }
+
+
+func (u Users) RenderAccess(res http.ResponseWriter, req *http.Request, params httprouter.Params) {
+	helpers.RespondWithJSON(res, http.StatusOK, map[string]interface{}{"status": "UMS API"})
+}

@@ -41,6 +41,8 @@ func main() {
 	mux.DELETE("/user/:id", users.DeleteUser)
 	mux.PUT("/user/:id", users.UpdateUser)
 
-	server.Run("localhost:" + port)
+	mux.GET("/", users.RenderAccess)
+
+	server.Run("0.0.0.0:" + port)
 	graceful.Run(serverIP+":"+port, 10*time.Second, server)
 }
