@@ -1,93 +1,20 @@
 <template>
   <div class="wrapper">
-    <nav>
-      <div class="container mx-auto">
-        <div class="logo">UMS</div>
-        <div class="navigation">
-          <router-link to="/">Home</router-link>
-          <router-link to="/about">About</router-link>
-          <router-link to="/user/new" class="cta">Add New</router-link>
-        </div>
-      </div>
-    </nav>
+    <NavBar />
     <router-view />
+    <SnackBar />
   </div>
 </template>
 
-<style>
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+<script>
+import NavBar from "@/components/Layout/Navbar";
+import SnackBar from "@/components/Notification/SnackBar";
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-.container {
-  width: 100%;
-  max-width: 1440px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-.mx-auto {
-  margin: 0px auto;
-}
-
-nav {
-  padding: 15px 0px;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
-}
-
-nav .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-weight: bold;
-  color: #5bb7d6;
-  letter-spacing: 3px;
-  font-size: 24px;
-}
-
-nav a {
-  color: #5bb7d6;
-  text-decoration: none;
-  margin: 0px 15px;
-  transition: all 0.25s ease-in-out;
-}
-
-nav a:hover {
-  color: #2c3e50;
-}
-
-.cta {
-  background: #5bb7d6;
-  color: #000;
-  padding: 5px 10px;
-  text-align: center;
-  text-decoration: none;
-  border-radius: 3px;
-}
-
-nav a.router-link-exact-active {
-  font-weight: bold;
-}
-
-.icon {
-  border: none;
-  background: transparent;
-}
-</style>
+export default {
+  components: {
+    NavBar,
+    SnackBar,
+  },
+};
+</script>
+<style></style>
