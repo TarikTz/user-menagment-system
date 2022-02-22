@@ -1,40 +1,44 @@
 <template>
   <div class="home container mx-auto">
     <div class="tableFilters">
-      <div class="filter">
-        <label for="status">Filter</label>
-        <select
-          name="status"
-          id="status"
-          v-model="this.$store.state.filters.status"
-          @change="filterUsers"
-        >
-          <option value="-1" selected>All</option>
-          <option value="0" selected>Disabled</option>
-          <option value="1" selected>Enabled</option>
-        </select>
-      </div>
-      <div class="filter">
-        <label for="order">Order</label>
-        <select
-          name="order"
-          id="order"
-          v-model="this.$store.state.filters.order"
-          @change="filterUsers"
-        >
-          <option
-            :value="item.value"
-            v-for="(item, index) in orderItems"
-            :key="index"
-            :selected="
-              item.value == this.$store.state.filters.order ? true : false
-            "
+      <h2>Users List</h2>
+      <div class="filters">
+        <div class="filter">
+          <label for="status">Filter</label>
+          <select
+            name="status"
+            id="status"
+            v-model="this.$store.state.filters.status"
+            @change="filterUsers"
           >
-            {{ item.name }}
-          </option>
-        </select>
+            <option value="-1" selected>All</option>
+            <option value="0" selected>Disabled</option>
+            <option value="1" selected>Enabled</option>
+          </select>
+        </div>
+        <div class="filter">
+          <label for="order">Order</label>
+          <select
+            name="order"
+            id="order"
+            v-model="this.$store.state.filters.order"
+            @change="filterUsers"
+          >
+            <option
+              :value="item.value"
+              v-for="(item, index) in orderItems"
+              :key="index"
+              :selected="
+                item.value == this.$store.state.filters.order ? true : false
+              "
+            >
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
+
     <div class="tableHeaders">
       <div><strong>ID</strong></div>
       <div><strong>Full Name</strong></div>
@@ -215,8 +219,14 @@ div.sm-col {
 
 .tableFilters {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   margin-bottom: 20px;
+  background: #5bb7d6;
+  padding: 10px;
+}
+
+.tableFilters .filters {
+  display: flex;
 }
 
 .filter {

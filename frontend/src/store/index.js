@@ -6,6 +6,7 @@ export default createStore({
     api: "http://localhost:3010",
     users: [],
     users_count: 0,
+    snackbar: false,
     user: {
       first_name: "",
       last_name: "",
@@ -32,8 +33,12 @@ export default createStore({
 
       return (state.users = []);
     },
+    setSnackBar(state, payload) {
+      return (state.snackbar = payload);
+    },
     setNotification(state, payload) {
       return (
+        (state.snackbar = true),
         (state.notification.status = true),
         (state.notification.message = payload)
       );
@@ -84,10 +89,19 @@ export default createStore({
           console.log(err);
         });
     },
+    updateUser(context, payload) {
+      return new axios.put(this.state.api + "/user/" + payload.id, payload)
+        .then((response) => {
+          context.commit("setNotification", response.data.status);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     deleteUser(context, payload) {
       return new axios.delete(this.state.api + "/user/" + payload)
         .then((response) => {
-          context.commit("setNotification", response.data);
+          context.commit("setNotification", response.data.status);
           this.dispatch("getUsers", this.state.filters);
         })
         .catch((err) => {
@@ -97,6 +111,9 @@ export default createStore({
     filterUsers(context) {
       context.commit("updateFilters");
       this.dispatch("getUsers", this.state.filters);
+    },
+    setSnackBar(context, payload) {
+      context.commit("setSnackBar", payload);
     },
   },
   modules: {},

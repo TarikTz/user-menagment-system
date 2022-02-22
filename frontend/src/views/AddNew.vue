@@ -50,13 +50,9 @@
         </select>
       </div>
       <div class="form-group w-half">
-        <input type="submit" name="submit" value="Submit" class="submit" />
+        <input type="submit" name="submit" :value="submitText" class="submit" />
       </div>
     </form>
-
-    <div class="messages" v-if="this.$store.state.notification.status">
-      {{ this.$store.state.notification.message }}
-    </div>
   </div>
 </template>
 
@@ -74,7 +70,6 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.params.id);
     if (this.$route.params.id != "new") {
       this.$store.dispatch("getUser", this.$route.params.id);
       this.submitText = "Update";
@@ -83,9 +78,15 @@ export default {
   },
   methods: {
     addNewUser() {
-      console.log("validate here");
+      if (this.$route.params.id == "new") {
+        this.user.status = parseInt(this.user.status);
+        this.$store.dispatch("createUser", this.user);
+
+        return;
+      }
+
       this.user.status = parseInt(this.user.status);
-      this.$store.dispatch("createUser", this.user);
+      this.$store.dispatch("updateUser", this.user);
     },
   },
 };
