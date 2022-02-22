@@ -16,10 +16,9 @@ var (
 	sqlDriver   = "mysql"
 	sqlUser     = "root"
 	sqlPassword = "root"
-	sqlProtocol = "tcp"       // "unix"
-	sqlAddress  = "localhost" // "/tmp/mysql.sock"
+	sqlProtocol = "tcp"       
+	sqlAddress  = "localhost"
 
-	// Common port for MySQL services
 	sqlPort = "8889" // "mysql"
 )
 
@@ -27,10 +26,8 @@ type App struct {
 	DB *sqlx.DB
 }
 
-func DBAccess(deploy bool, runas string) *App {
+func DBAccess() *App {
 	a := new(App)
-
-	// a.devMode = (runas == RunModeDev) || (runas == RunModeTest) || (runas == RunModeLocal)
 
 	dbName = "ums_db"
 	sqlUser = "root"
@@ -47,14 +44,12 @@ func DBAccess(deploy bool, runas string) *App {
 		fmt.Println("Connected to Portal DB")
 	}
 
-	a.DB.SetMaxIdleConns(10)
-	a.DB.SetMaxOpenConns(5)
-
 	Access = a
 
 	return a
 }
 
+// getDSN ->
 func (a App) getDSN() string {
 	return sqlUser + ":" + sqlPassword + "@" + sqlProtocol + "(" + sqlAddress + ":" + sqlPort + ")" + "/" + dbName // + "?tls=false"
 }
